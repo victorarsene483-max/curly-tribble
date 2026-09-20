@@ -40,7 +40,6 @@ function generateId() {
   return `unit-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-// Basic shape-check so a corrupted/edited localStorage value can't crash the app.
 function isValidUnitArray(data) {
   return (
     Array.isArray(data) &&
