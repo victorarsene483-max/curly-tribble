@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-const STORAGE_KEY = "edumate_units";
+const UNITS_STORAGE_KEY = "edumate_units";
+const ASSIGNMENTS_STORAGE_KEY = "edumate_assignments";
 
 const THEME_CYCLE = [
   { icon: "box", color: "purple" },
@@ -33,11 +34,11 @@ const DEFAULT_UNITS = [
   ...unit,
 }));
 
-function generateId() {
+function generateId(prefix = "id") {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {
     return crypto.randomUUID();
   }
-  return `unit-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 }
 
 function isValidUnitArray(data) {
@@ -47,9 +48,16 @@ function isValidUnitArray(data) {
   );
 }
 
+function isValidAssignmentArray(data) {
+  return (
+    Array.isArray(data) &&
+    data.every((a) => a && typeof a === "object" && typeof a.id === "string" && typeof a.title === "string")
+  );
+}
+
 function loadUnits(initialUnits) {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(UNITS_STORAGE_KEY);
     if (!raw) return initialUnits.length > 0 ? initialUnits : DEFAULT_UNITS;
 
     const parsed = JSON.parse(raw);
@@ -64,25 +72,49 @@ function loadUnits(initialUnits) {
   }
 }
 
+function loadAssignments(initialAssignments) {
+  try {
+    const raw = localStorage.getItem(ASSIGNMENTS_STORAGE_KEY);
+    if (!raw) return initialAssignments;
+
+    const parsed = JSON.parse(raw);
+    if (!isValidAssignmentArray(parsed)) {
+      console.warn("Saved assignments were malformed — resetting.");
+      return initialAssignments;
+    }
+    return parsed;
+  } catch (err) {
+    console.warn("Could not read assignments from localStorage.", err);
+    return initialAssignments;
+  }
+}
+
 const DashboardContext = createContext(null);
 
 export function DashboardProvider({ children, initialUnits = [], initialAssignments = [] }) {
   const [units, setUnits] = useState(() => loadUnits(initialUnits));
-  const [assignments, setAssignments] = useState(initialAssignments);
+  const [assignments, setAssignments] = useState(() => loadAssignments(initialAssignments));
 
-  // Persist to localStorage every time units change.
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(units));
+      localStorage.setItem(UNITS_STORAGE_KEY, JSON.stringify(units));
     } catch (err) {
       console.error("Failed to save units to localStorage.", err);
     }
   }, [units]);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem(ASSIGNMENTS_STORAGE_KEY, JSON.stringify(assignments));
+    } catch (err) {
+      console.error("Failed to save assignments to localStorage.", err);
+    }
+  }, [assignments]);
+
   function addUnit({ code, name, lecturer = "", semester = "" }) {
     const theme = THEME_CYCLE[units.length % THEME_CYCLE.length];
     const newUnit = {
-      id: generateId(),
+      id: generateId("unit"),
       code,
       name,
       lecturer,
@@ -105,9 +137,59 @@ export function DashboardProvider({ children, initialUnits = [], initialAssignme
     setUnits((prev) => prev.filter((unit) => unit.id !== id));
   }
 
+  // title, type, unitCode, dueDate are required; completed defaults to false.
+  function addAssignment({ title, type, unitCode, dueDate }) {
+    const newAssignment = {
+      id: generateId("assignment"),
+      title,
+      type,
+      unitCode,
+      dueDate,
+      completed: false,
+    };
+    setAssignments((prev) => [...prev, newAssignment]);
+
+    // keep each unit's assignmentsCount in sync
+    setUnits((prev) =>
+      prev.map((u) =>
+        u.code === unitCode ? { ...u, assignmentsCount: (u.assignmentsCount || 0) + 1 } : u
+      )
+    );
+
+    return newAssignment;
+  }
+
+  function updateAssignment(id, updates) {
+    setAssignments((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, ...updates } : a))
+    );
+  }
+
+  function deleteAssignment(id) {
+    setAssignments((prev) => prev.filter((a) => a.id !== id));
+  }
+
+  function toggleAssignmentComplete(id) {
+    setAssignments((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, completed: !a.completed } : a))
+    );
+  }
+
   return (
     <DashboardContext.Provider
-      value={{ units, assignments, addUnit, updateUnit, deleteUnit, setUnits, setAssignments }}
+      value={{
+        units,
+        assignments,
+        addUnit,
+        updateUnit,
+        deleteUnit,
+        setUnits,
+        addAssignment,
+        updateAssignment,
+        deleteAssignment,
+        toggleAssignmentComplete,
+        setAssignments,
+      }}
     >
       {children}
     </DashboardContext.Provider>
