@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --sidebar-bg: #ffffff;
   --sidebar-border: #f1f1f4;
   --accent: #6c5ce7;
@@ -19,6 +20,7 @@
 /* Falls back to the system preference if the user hasn't explicitly chosen a theme */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --sidebar-bg: #111827;
     --sidebar-border: #1f2937;
     --accent: #8b7cf6;
@@ -39,6 +41,7 @@
 
 /* Explicit dark mode, toggled by the useTheme hook via data-theme="dark" */
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --sidebar-bg: #111827;
   --sidebar-border: #1f2937;
   --accent: #8b7cf6;
@@ -71,6 +74,14 @@
   box-sizing: border-box;
   overflow: hidden;
   transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.sidebar-top {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .sidebar-logo {
@@ -332,8 +343,4 @@
 
 body:has(.sidebar.open) {
   overflow: hidden;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 12509903454046d9c4558d19848ef5d7cc6d06d0
