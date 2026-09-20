@@ -1,7 +1,8 @@
 import { useMemo, useState } from "react";
 import { Plus, BookOpen } from "lucide-react";
-import { useDashboard } from "./DashboardContext";im
-   import { getDaysUntil, UNIT_ICONS } from "./dashboardUtils";
+import { useDashboard } from "./DashboardContext";
+import { getDaysUntil, UNIT_ICONS } from "./dashboardUtils";
+import AddTaskModal from "./AddTaskModal";
 import "./TasksDueSoon.css";
 
 function getUrgencyTheme(daysLeft) {
