@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Database, Code2, BarChart3, Binary, Wifi, MessageSquare, Atom, Plus } from "lucide-react";
+import { Box, Database, Code2, BarChart3, Binary, Wifi, MessageSquare, Atom, Plus, X } from "lucide-react";
 import { useDashboard } from "./DashboardContext";
 import "./MyUnits.css"
 
@@ -16,8 +16,24 @@ const ICONS = {
 };
 
 function MyUnits() {
-  const { units, addUnit } = useDashboard();
+  const { units, addUnit, deleteUnit } = useDashboard();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [code, setCode] = useState("");
+  const [name, setName] = useState("");
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!code.trim() || !name.trim()) return;
+
+    addUnit({
+      code: code.trim(),
+      name: name.trim(),
+    });
+
+    setCode("");
+    setName("");
+    setIsModalOpen(false);
+  }
 
   return (
     <div className="my-units-card">
@@ -48,6 +64,13 @@ function MyUnits() {
                 </div>
                 <span className="unit-progress-value">{unit.progress}%</span>
               </div>
+              <button
+                className="drop-unit-btn"
+                onClick={() => deleteUnit(unit.id)}
+                title="Drop unit"
+              >
+                <X size={16} />
+              </button>
             </li>
           );
         })}
@@ -58,7 +81,47 @@ function MyUnits() {
         Add Unit
       </button>
 
-
+      {isModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>Add Unit</h3>
+              <button className="modal-close-btn" onClick={() => setIsModalOpen(false)}>
+                <X size={18} />
+              </button>
+            </div>
+            <form onSubmit={handleSubmit}>
+              <label>
+                Unit code
+                <input
+                  type="text"
+                  placeholder="e.g. COSC 401"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  autoFocus
+                />
+              </label>
+              <label>
+                Unit name
+                <input
+                  type="text"
+                  placeholder="e.g. Distributed Systems"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </label>
+              <div className="modal-actions">
+                <button type="button" className="modal-cancel-btn" onClick={() => setIsModalOpen(false)}>
+                  Cancel
+                </button>
+                <button type="submit" className="modal-submit-btn">
+                  Add
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

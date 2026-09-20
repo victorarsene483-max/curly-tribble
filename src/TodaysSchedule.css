@@ -121,3 +121,18 @@
 .schedule-location {
   color: var(--text-faint);
 }
+.schedule-empty {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  padding: 16px 0;
+  text-align: center;
+}
+.schedule-item.theme-pink   .schedule-bar { background: #ec4899; }
+.schedule-item.theme-teal   .schedule-bar { background: #14b8a6; }
+.schedule-item.theme-red    .schedule-bar { background: #ef4444; }
+.schedule-item.theme-indigo .schedule-bar { background: #6366f1; }
+
+.schedule-item.theme-pink   .schedule-title { color: #ec4899; }
+.schedule-item.theme-teal   .schedule-title { color: #0d9488; }
+.schedule-item.theme-red    .schedule-title { color: #dc2626; }
+.schedule-item.theme-indigo .schedule-title { color: #4f46e5; }

@@ -1,6 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 import { Bell, Calendar, ChevronDown, Check } from "lucide-react";
 import "./Topbar.css"
+function getGreeting(){
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good Morning";
+  if (hour < 18) return "Good Afternoon";
+  return "Good Evening";
+}
 
 const semesters = ["Semester 1, 2026", "Semester 2, 2026", "Semester 2, 2025"];
 
@@ -22,7 +28,7 @@ function TopBar({ userName = "Arsene", notificationCount = 3 }) {
   return (
     <div className="topbar">
       <div className="topbar-greeting-block">
-        <p className="topbar-greeting">Good morning, {userName}! 👋</p>
+        <p className="topbar-greeting">{getGreeting()}! Arsene 👋</p>
         <p className="topbar-description">Here's what's happening with your semester.</p>
       </div>
 

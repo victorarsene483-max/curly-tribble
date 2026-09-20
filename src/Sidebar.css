@@ -332,4 +332,8 @@
 
 body:has(.sidebar.open) {
   overflow: hidden;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 12509903454046d9c4558d19848ef5d7cc6d06d0
