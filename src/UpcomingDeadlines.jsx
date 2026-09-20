@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { useDashboard } from "./DashboardContext";
-import "./UpcomingDeadlines.css"
+import { getDaysUntil, parseLocalDate } from "./dashboardUtils";
+import "./UpcomingDeadlines.css";
+
 function getUrgencyTheme(daysLeft) {
   if (daysLeft <= 3) return "red";
   if (daysLeft <= 5) return "orange";
@@ -8,8 +10,12 @@ function getUrgencyTheme(daysLeft) {
   return "blue";
 }
 
-function formatDate(date) {
-  return date.toLocaleDateString("en-US", { month: "short", day: "2-digit", year: "numeric" });
+function formatDate(dueDate) {
+  return parseLocalDate(dueDate).toLocaleDateString("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  });
 }
 
 function UpcomingDeadlines() {
