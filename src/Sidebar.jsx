@@ -1,5 +1,6 @@
 import { useState } from "react";
 import profilePic from "./assets/profile.jpg";
+import { useTheme } from "./UseTheme";
 import {
   Home,
   BookOpen,
@@ -14,6 +15,7 @@ import {
   ChevronRight,
   ChevronDown,
   Sun,
+  Moon,
   GraduationCap,
   Menu,
   X,
@@ -36,6 +38,7 @@ const navItems = [
 function Sidebar() {
   const [activeItem, setActiveItem] = useState("Dashboard");
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   function handleNavClick(label) {
     setActiveItem(label);
@@ -100,10 +103,14 @@ function Sidebar() {
             <ChevronRight size={16} className="sidebar-chevron" />
           </button>
 
-          <button className="sidebar-theme-toggle">
+          <button
+            className="sidebar-theme-toggle"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          >
             <span className="sidebar-theme-label">
-              <Sun size={16} />
-              Light Mode
+              {theme === "dark" ? <Moon size={16} /> : <Sun size={16} />}
+              {theme === "dark" ? "Dark Mode" : "Light Mode"}
             </span>
             <ChevronDown size={16} className="sidebar-chevron" />
           </button>
