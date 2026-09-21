@@ -1,4 +1,4 @@
-* {
+  *{
   box-sizing: border-box;
 }
 
@@ -61,5 +61,27 @@ body {
   }
   .units-deadlines-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-main {
+    padding: 16px;
+    padding-top: calc(72px + env(safe-area-inset-top, 0px));
+    gap: 16px;
+  }
+  .dashboard-body {
+    gap: 16px;
+  }
+  .main-column,
+  .right-column {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-main {
+    padding: 12px;
+    padding-top: calc(68px + env(safe-area-inset-top, 0px));
   }
 }
