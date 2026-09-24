@@ -97,7 +97,7 @@ function Sidebar() {
           <button className="sidebar-profile">
             <img src={profilePic} alt="Arsene" className="sidebar-avatar" />
             <div className="sidebar-profile-text">
-              <p className="sidebar-profile-name">Arsene V</p>
+              <p className="sidebar-profile-name">Arsene Victor</p>
               <p className="sidebar-profile-link">View Profile</p>
             </div>
             <ChevronRight size={16} className="sidebar-chevron" />

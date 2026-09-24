@@ -1,4 +1,5 @@
 import { DashboardProvider } from "./DashboardContext.jsx";
+import{useState} from "react";
 import OverviewStats from "./OverviewStats.jsx";
 import Sidebar from "./Sidebar.jsx";
 import TopBar from "./TopBar.jsx";
@@ -9,10 +10,16 @@ import TodaysSchedule from "./TodaysSchedule.jsx";
 import TasksDueSoon from "./TasksDueSoon.jsx";
 import "./App.css";
 import AIAssistant from "./AIAssistant.jsx";
+import Login from "./Login.jsx"
 const myUnits = [];
 const myAssignments = [];
 
 function App() {
+  const[user,setUser]=useState(null)
+
+ if (!user) {
+    return <Login onLogin={setUser} />;
+  }
   return (
     <DashboardProvider initialUnits={myUnits} initialAssignments={myAssignments}>
       <div className="app-layout">

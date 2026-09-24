@@ -13,7 +13,7 @@ function getUrgencyTheme(daysLeft) {
 }
 
 function TasksDueSoon({ maxItems = 3 }) {
-  const { assignments, units, addAssignment } = useDashboard();
+  const { assignments, units, addAssignment, toggleAssignmentComplete } = useDashboard();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const dueSoon = useMemo(() => {
@@ -41,14 +41,25 @@ function TasksDueSoon({ maxItems = 3 }) {
 
           return (
             <div className="task-tile" key={task.id}>
-              <span className={`task-days theme-${urgency}`}>
-                {task.daysLeft === 0 ? "Due today" : `${task.daysLeft} day${task.daysLeft === 1 ? "" : "s"} left`}
-              </span>
+              <input
+                type="checkbox"
+                className="task-checkbox"
+                checked={task.completed}
+                onChange={() => toggleAssignmentComplete(task.id)}
+                aria-label={`Mark "${task.title}" as complete`}
+              />
               <div className={`task-icon-box theme-${theme}`}>
                 <Icon size={18} />
               </div>
               <div className="task-info">
-                <p className="task-title">{task.title}</p>
+                <div className="task-title-row">
+                  <p className="task-title">{task.title}</p>
+                  <span className={`task-days theme-${urgency}`}>
+                    {task.daysLeft === 0
+                      ? "Due today"
+                      : `${task.daysLeft} day${task.daysLeft === 1 ? "" : "s"} left`}
+                  </span>
+                </div>
                 <p className="task-unit">{task.unitCode}</p>
               </div>
             </div>
