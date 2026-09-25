@@ -8,7 +8,7 @@ function getGreeting(){
   return "Good Evening";
 }
 
-const semesters = ["Semester 1, 2026", "Semester 2, 2026", "Semester 2, 2025"];
+const semesters = [" Y3SEM 1, 2026", "Y3SEM 2, 2027", "Y2SEM 2, 2026"];
 
 function TopBar({ userName = "Arsene", notificationCount = 3 }) {
   const [selectedSemester, setSelectedSemester] = useState(semesters[0]);
