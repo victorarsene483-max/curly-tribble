@@ -3,7 +3,7 @@ import { Sparkles, Send, Compass, BookOpen, HelpCircle, MessageSquarePlus } from
 import { useDashboard } from "./DashboardContext";
 import "./AIAssistant.css";
 
-const QUICK_ACTIONS = [
+const quickActions= [
   { icon: HelpCircle, label: "Explain a concept", prompt: "Can you help me understand a concept I'm stuck on?" },
   { icon: BookOpen, label: "Help with assignment", prompt: "Can you help me get started on an upcoming assignment?" },
   { icon: Compass, label: "Study tips & resources", prompt: "Any study tips for managing my current workload?" },
@@ -99,7 +99,7 @@ function AIAssistant({ userName = "Arsene" }) {
           <p className="ai-subtext">How can I help you today?</p>
 
           <div className="ai-quick-actions">
-            {QUICK_ACTIONS.map(({ icon: Icon, label, prompt }) => (
+            {quickActions.map(({ icon: Icon, label, prompt }) => (
               <button
                 key={label}
                 className="ai-quick-action"
