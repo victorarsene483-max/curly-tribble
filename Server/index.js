@@ -62,6 +62,10 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`AI backend running on http://localhost:${PORT}`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`AI backend running on http://localhost:${PORT}`);
+  });
+}
+
+export default app;

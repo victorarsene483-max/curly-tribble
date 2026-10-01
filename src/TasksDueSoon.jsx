@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Plus, BookOpen } from "lucide-react";
 import { useDashboard } from "./DashboardContext";
-import { getDaysUntil, UNIT_ICONS } from "./dashboardUtils";
+import { getDaysUntil, UNIT_ICONS } from "./dashboardUtils.js";
 import AddTaskModal from "./AddTaskModal";
 import "./TasksDueSoon.css";
 
