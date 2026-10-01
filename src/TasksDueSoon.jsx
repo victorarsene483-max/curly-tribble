@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Plus, BookOpen } from "lucide-react";
 import { useDashboard } from "./DashboardContext";
-import { getDaysUntil, UNIT_ICONS } from "./dashboardUtils.js";
+import { getDaysUntil, UNIT_ICONS } from "./DashboardUtils.js";
 import AddTaskModal from "./AddTaskModal";
 import "./TasksDueSoon.css";
 
@@ -40,52 +40,3 @@ function TasksDueSoon({ maxItems = 3 }) {
           const urgency = getUrgencyTheme(task.daysLeft);
 
           return (
-            <div className="task-tile" key={task.id}>
-              <input
-                type="checkbox"
-                className="task-checkbox"
-                checked={task.completed}
-                onChange={() => toggleAssignmentComplete(task.id)}
-                aria-label={`Mark "${task.title}" as complete`}
-              />
-              <div className={`task-icon-box theme-${theme}`}>
-                <Icon size={18} />
-              </div>
-              <div className="task-info">
-                <div className="task-title-row">
-                  <p className="task-title">{task.title}</p>
-                  <span className={`task-days theme-${urgency}`}>
-                    {task.daysLeft === 0
-                      ? "Due today"
-                      : `${task.daysLeft} day${task.daysLeft === 1 ? "" : "s"} left`}
-                  </span>
-                </div>
-                <p className="task-unit">{task.unitCode}</p>
-              </div>
-            </div>
-          );
-        })}
-
-        <button className="task-tile add-task-tile" onClick={() => setIsModalOpen(true)}>
-          <div className="task-icon-box theme-neutral">
-            <Plus size={18} />
-          </div>
-          <div className="task-info">
-            <p className="task-title">Add Assignment</p>
-            <p className="task-unit">Keep track of your work</p>
-          </div>
-        </button>
-      </div>
-
-      {isModalOpen && (
-        <AddTaskModal
-          units={units}
-          onClose={() => setIsModalOpen(false)}
-          onSubmit={addAssignment}
-        />
-      )}
-    </div>
-  );
-}
-
-export default TasksDueSoon;
