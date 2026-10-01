@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useDashboard } from "./DashboardContext";
-import { getDaysUntil, parseLocalDate } from "./dashboardUtils";
+import { getDaysUntil, parseLocalDate } from "./DashboardUtils.js";
 import "./UpcomingDeadlines.css";
 
 function getUrgencyTheme(daysLeft) {
