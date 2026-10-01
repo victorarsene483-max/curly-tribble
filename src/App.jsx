@@ -5,7 +5,7 @@ import Sidebar from "./Sidebar.jsx";
 import TopBar from "./TopBar.jsx";
 import MyUnits from "./MyUnits.jsx";
 import UpcomingDeadlines from "./UpcomingDeadlines.jsx";
-import StudyTime from "./StudyTime.jsx";
+import StudyTime from "./Studytime.jsx";   
 import TodaysSchedule from "./TodaysSchedule.jsx";
 import TasksDueSoon from "./TasksDueSoon.jsx";
 import "./App.css";
