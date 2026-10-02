@@ -3,13 +3,25 @@ import { Sparkles, Send, Compass, BookOpen, HelpCircle, MessageSquarePlus } from
 import { useDashboard } from "./DashboardContext";
 import "./AIAssistant.css";
 
-const quickActions= [
+const API_URL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+
+const quickActions = [
   { icon: HelpCircle, label: "Explain a concept", prompt: "Can you help me understand a concept I'm stuck on?" },
   { icon: BookOpen, label: "Help with assignment", prompt: "Can you help me get started on an upcoming assignment?" },
   { icon: Compass, label: "Study tips & resources", prompt: "Any study tips for managing my current workload?" },
 ];
 
-function buildContext(units, assignments) {
+function getDaysUntil(dueDate) {
+  if (!dueDate) return -1;
+  const due = new Date(dueDate);
+  if (Number.isNaN(due.getTime())) return -1;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  due.setHours(0, 0, 0, 0);
+  return Math.round((due - today) / (1000 * 60 * 60 * 24));
+}
+
+function buildContext(units = [], assignments = []) {
   const upcoming = assignments
     .filter((a) => !a.completed)
     .map((a) => ({ ...a, daysLeft: getDaysUntil(a.dueDate) }))
@@ -48,21 +60,31 @@ function AIAssistant({ userName = "Arsene" }) {
     setIsLoading(true);
 
     try {
-      const res = await fetch("/api/chat", {
+      
+      let context = "";
+      try {
+        context = buildContext(units, assignments);
+      } catch (ctxErr) {
+        console.warn("Could not build context:", ctxErr);
+      }
+
+      const res = await fetch(`${API_URL}/api/chat`, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({
-          messages: nextMessages,
-          context: buildContext(units, assignments),
-        }),
+        body: JSON.stringify({ messages: nextMessages, context }),
       });
 
-      if (!res.ok) throw new Error("Request failed");
+      if (!res.ok) {
+        throw new Error(`Server responded with ${res.status}`);
+      }
 
       const data = await res.json();
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: data.reply || "(No response)" }]);
     } catch (err) {
-      setError("Couldn't reach the assistant. Check your backend server is running.");
+      console.error("AI chat error:", err);
+      setError(
+        "Couldn't reach the assistant. The server may be waking up (this can take up to a minute) — please try again."
+      );
     } finally {
       setIsLoading(false);
     }
