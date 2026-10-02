@@ -1,0 +1,264 @@
+.ai-assistant-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #f1f1f4;
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 320px;
+}
+
+.ai-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.ai-header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6c5ce7;
+}
+
+.ai-header-title h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.ai-new-chat-btn {
+  padding: 6px 12px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+}
+
+.ai-new-chat-btn:hover {
+  background: #f9fafb;
+}
+
+/* Idle state */
+.ai-idle {
+  background: #f5f4fd;
+  border-radius: 14px;
+  padding: 18px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-greeting {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.ai-subtext {
+  margin: 4px 0 16px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.ai-quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.ai-quick-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+  cursor: pointer;
+}
+
+.ai-quick-action:hover {
+  border-color: #6c5ce7;
+}
+
+.ai-quick-action-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ai-quick-action-arrow {
+  color: #9ca3af;
+}
+
+.ai-start-chat-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  border: none;
+  background: #6c5ce7;
+  color: #ffffff;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.ai-start-chat-btn:hover {
+  background: #5a4bd4;
+}
+
+/* Chat thread state */
+.ai-thread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 360px;
+  padding-right: 4px;
+  margin-bottom: 12px;
+}
+
+.ai-bubble {
+  max-width: 85%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.ai-bubble-user {
+  align-self: flex-end;
+  background: #6c5ce7;
+  color: #ffffff;
+  border-bottom-right-radius: 4px;
+}
+
+.ai-bubble-assistant {
+  align-self: flex-start;
+  background: #f3f4f6;
+  color: #111827;
+  border-bottom-left-radius: 4px;
+}
+
+.ai-bubble-loading {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.ai-error {
+  align-self: center;
+  font-size: 12px;
+  color: #ef4444;
+}
+
+.ai-input-row {
+  display: flex;
+  gap: 8px;
+}
+
+.ai-input-row input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.ai-input-row input:focus {
+  outline: none;
+  border-color: #6c5ce7;
+}
+
+.ai-send-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: #6c5ce7;
+  color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.ai-send-btn:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+.ai-header {
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+
+.ai-header-title h3 {
+  white-space: nowrap;
+}
+
+
+
+.ai-assistant-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+}
+
+.ai-header-title h3 {
+  color: var(--text-primary);
+}
+
+.ai-new-chat-btn {
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+}
+
+.ai-new-chat-btn:hover {
+  background: var(--bg-hover);
+}
+
+.ai-idle {
+  background: var(--bg-tint-purple);
+}
+
+.ai-greeting {
+  color: var(--text-primary);
+}
+
+.ai-subtext {
+  color: var(--text-tertiary);
+}
+
+.ai-quick-action {
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+}
+
+.ai-bubble-assistant {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.ai-input-row input {
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text-primary);
+}

@@ -1,0 +1,159 @@
+/* EduMate palette (matched to the dashboard UI)
+   --edumate-violet:     #6C5CE7  (primary — logo, links, buttons, active states)
+   --edumate-violet-dark:#5A4BD4  (button hover)
+   --edumate-violet-tint:#EEEAFC  (chips, focus ring, hover backgrounds)
+   --edumate-ink:        #16152B  (headings, primary text)
+   --edumate-slate:      #6B7280  (muted / secondary text)
+   --edumate-bg:         #F7F7FB  (page background)
+   --edumate-line:       #E9E9F2  (borders)
+   --edumate-red:        #EF4444  (errors / urgent)
+*/
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  background: var(--edumate-bg, #F7F7FB);
+  font-family: -apple-system, "Segoe UI", "Inter", sans-serif;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 400px;
+  background: #FFFFFF;
+  border: 1px solid var(--edumate-line, #E9E9F2);
+  border-radius: 16px;
+  padding: 40px 36px;
+  box-shadow: 0 16px 32px -20px rgba(22, 21, 43, 0.16);
+}
+
+.login-brand {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  margin-bottom: 28px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.login-brand-rent {
+  color: var(--edumate-violet, #6C5CE7);
+}
+
+.login-brand-flow {
+  color: var(--edumate-ink, #16152B);
+}
+
+.login-title {
+  margin: 0 0 8px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--edumate-ink, #16152B);
+  text-align: center;
+}
+
+.login-subtitle {
+  margin: 0 0 28px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--edumate-slate, #6B7280);
+  text-align: center;
+}
+
+.login-field {
+  display: block;
+  margin-bottom: 18px;
+}
+
+.login-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--edumate-ink, #16152B);
+}
+
+.login-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 14px;
+  font-size: 0.95rem;
+  color: var(--edumate-ink, #16152B);
+  background: #FBFBFD;
+  border: 1px solid var(--edumate-line, #E9E9F2);
+  border-radius: 10px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.login-input::placeholder {
+  color: #A3A6B8;
+}
+
+.login-input:focus {
+  background: #FFFFFF;
+  border-color: var(--edumate-violet, #6C5CE7);
+  box-shadow: 0 0 0 4px var(--edumate-violet-tint, #EEEAFC);
+}
+
+.login-error {
+  margin: -4px 0 18px;
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: var(--edumate-red, #EF4444);
+  background: #FEECEC;
+  border: 1px solid #FBD3D3;
+  border-radius: 10px;
+}
+
+.login-submit {
+  width: 100%;
+  padding: 12px 16px;
+  margin-top: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  background: var(--edumate-violet, #6C5CE7);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.login-submit:hover {
+  background: var(--edumate-violet-dark, #5A4BD4);
+  box-shadow: 0 10px 20px -10px rgba(108, 92, 231, 0.55);
+}
+
+.login-submit:active {
+  transform: translateY(1px);
+}
+
+.login-submit:focus-visible {
+  outline: 3px solid var(--edumate-violet-tint, #EEEAFC);
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .login-page {
+    padding: 20px 16px;
+  }
+
+  .login-form {
+    padding: 28px 22px;
+    border-radius: 14px;
+  }
+
+  .login-brand {
+    font-size: 1.3rem;
+    margin-bottom: 22px;
+  }
+
+  .login-title {
+    font-size: 1.2rem;
+  }
+}
